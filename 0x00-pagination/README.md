@@ -16,7 +16,7 @@ HOW TO TEST WITH ```pycodestyle```?
 
 Write this code:
 
-```pycodestyle <name of file```
+    pycodestyle <name of file>
 
 Hit enter
 
