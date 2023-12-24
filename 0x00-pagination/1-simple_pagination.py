@@ -35,10 +35,13 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
+        """
+        return the information form dataset according to pages
+        passed in method
+        """
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0
         start_end = index_range(page, page_size)
-#        my_dataset = self.dataset
         if page * page_size > len(self.dataset()):
             return []
         return self.dataset()[start_end[0]: start_end[1]]
