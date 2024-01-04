@@ -17,13 +17,12 @@ class FIFOCache(BasicCaching):
 
     def put(self, key, item):
         """put new item in the cache storage"""
-        if key and item is None:
-            return
-        self.cache_data[key] = item
-        if self.MAX_ITEMS < len(self.cache_data):
-            keys = [keys for keys in self.cache_data.keys()]
-            del self.cache_data[keys[0]]
-            print('DISCARD: {}'.format(keys[0]))
+        if key and item is not None:
+            self.cache_data[key] = item
+            if self.MAX_ITEMS < len(self.cache_data):
+                keys = [keys for keys in self.cache_data.keys()]
+                del self.cache_data[keys[0]]
+                print('DISCARD: {}'.format(keys[0]))
 
     def get(self, key):
         """retrieve an item from the cache storage"""
