@@ -17,6 +17,11 @@ class LIFOCache(BasicCaching):
         super().__init__()
 
     def put(self, key, item):
+        """update the lifo stack
+        args:
+            key: key that holds value in the lifo dict
+            item: item to be assigned to value in dict
+        """
         self.__recent_updated.append(key)
         if key and item is not None:
             self.cache_data[key] = item
