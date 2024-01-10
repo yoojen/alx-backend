@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def home():
-    """return string on the home of web"""
+    """return string on the home of web using template"""
     return render_template('0-index.html')
 
 
