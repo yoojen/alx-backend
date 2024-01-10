@@ -1,36 +1,38 @@
 #!/usr/bin/env python3
 """
-force a particular locale by passing the locale=fr parameter
+A Basic flask application
 """
-from flask import Flask, request, render_template, globals
+from typing import (
+    Dict, Union
+)
+
+from flask import Flask
+from flask import g, request
+from flask import render_template
 from flask_babel import Babel
 
 
 class Config(object):
     """
-    configuration class of whole application
+    Application configuration class
     """
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
+# Instantiate the application object
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Wrap the application with Babel
 babel = Babel(app)
-
-
-def get_user(user_id):
-    """return user based on user id"""
-    if users.get(user_id) is not None:
-        return users.get(user_id)
-    return None
 
 
 @babel.localeselector
 def get_locale() -> str:
     """
-    Gets locale/lang from request params
+    Gets locale from request object
     """
     locale = request.args.get('locale', '').strip()
     if locale and locale in Config.LANGUAGES:
@@ -46,18 +48,29 @@ users = {
 }
 
 
+def get_user(id) -> Union[Dict[str, Union[str, None]], None]:
+    """
+    Validate user login details
+    Args:
+        id (str): user id
+    Returns:
+        (Dict): user dictionary if id is valid else None
+    """
+    return users.get(int(id), 0)
+
+
 @app.before_request
 def before_request():
-    """add user to globa object g"""
-    user_id = request.args.get('login_as')
-    user = get_user(user_id)
-    setattr(globals.g, 'user', user)
+    """
+    Adds valid user to the global session object `g`
+    """
+    setattr(g, 'user', get_user(request.args.get('login_as', 0)))
 
 
 @app.route('/', strict_slashes=False)
 def index() -> str:
     """
-    return homepage of the app
+    Renders a basic html template
     """
     return render_template('5-index.html')
 
