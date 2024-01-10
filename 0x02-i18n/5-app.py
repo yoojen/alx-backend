@@ -2,7 +2,7 @@
 """
 force a particular locale by passing the locale=fr parameter
 """
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, globals
 from flask_babel import Babel
 
 
@@ -51,7 +51,7 @@ def before_request():
     """add user to globa object g"""
     user_id = request.args.get('login_as')
     user_found = get_user(user_id)
-    setattr(g, 'user', user_found)
+    setattr(globals.g, 'user', user_found)
 
 
 @app.route('/', strict_slashes=False)
