@@ -50,8 +50,8 @@ users = {
 def before_request():
     """add user to globa object g"""
     user_id = request.args.get('login_as')
-    user_found = get_user(user_id)
-    setattr(globals.g, 'user', user_found)
+    user = get_user(user_id)
+    setattr(globals.g, 'user', user)
 
 
 @app.route('/', strict_slashes=False)
