@@ -2,13 +2,13 @@
 """
 force a particular locale by passing the locale=fr parameter
 """
-from flask import Flask, request, render_template,g
+from flask import Flask, request, render_template, g
 from flask_babel import Babel
 
 
 class Config(object):
     """
-    configuration class of whole application
+    Application configuration class
     """
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
@@ -21,7 +21,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale():
+def get_locale() -> str:
     """
     Gets locale/lang from request params
     """
@@ -39,14 +39,16 @@ users = {
 }
 
 
-def get_user(user_id):
-    """return user based on user id"""
-    return users.get(int(user_id), 0)
+def get_user(id):
+    """
+    return the user from users
+    """
+    return users.get(int(id), 0)
 
 
 @app.before_request
 def before_request():
-    """add user to globa object g"""
+    """return user based on user id"""
     setattr(g, 'user', get_user(request.args.get('login_as', 0)))
 
 
