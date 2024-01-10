@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+determine the best match with our supported languages
+"""
 from flask import Flask, render_template, request
 from flask_babel import Babel
 
