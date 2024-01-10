@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+"""
+rovide the correct value for each message ID for each language
+"""
 from flask import Flask, render_template, request
 from flask_babel import Babel
 
