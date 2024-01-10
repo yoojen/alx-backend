@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-
+"""
+force a particular locale by passing the locale=fr parameter
+"""
 from flask import Flask, request, render_template
 from flask_babel import Babel
 
