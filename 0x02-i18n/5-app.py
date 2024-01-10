@@ -21,7 +21,7 @@ babel = Babel(app)
 
 
 @babel.localeselector
-def get_locale() -> str:
+def get_locale():
     """
     Gets locale/lang from request params
     """
@@ -41,7 +41,7 @@ users = {
 
 def get_user(user_id):
     """return user based on user id"""
-    return users.get(int(user_id))
+    return users.get(int(user_id), 0)
 
 
 @app.before_request
