@@ -43,6 +43,7 @@ users = {
 def get_user(user_id):
     """return user based on user id"""
     if users.get(user_id) is not None:
+        print(users.get(user_id))
         return users.get(user_id)
     return None
 
