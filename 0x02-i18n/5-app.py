@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 """
-A Basic flask application
+flask application for translations
 """
-from typing import (
-    Dict, Union
-)
 
 from flask import Flask
 from flask import g, request
@@ -14,25 +11,22 @@ from flask_babel import Babel
 
 class Config(object):
     """
-    Application configuration class
+    configuration class for application
     """
     LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-# Instantiate the application object
 app = Flask(__name__)
 app.config.from_object(Config)
-
-# Wrap the application with Babel
 babel = Babel(app)
 
 
 @babel.localeselector
 def get_locale() -> str:
     """
-    Gets locale from request object
+    return locale string
     """
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
@@ -45,13 +39,9 @@ users = {
 }
 
 
-def get_user(id) -> Union[Dict[str, Union[str, None]], None]:
+def get_user(id):
     """
-    Validate user login details
-    Args:
-        id (str): user id
-    Returns:
-        (Dict): user dictionary if id is valid else None
+    Validate login details of user
     """
     return users.get(int(id), 0)
 
@@ -59,7 +49,7 @@ def get_user(id) -> Union[Dict[str, Union[str, None]], None]:
 @app.before_request
 def before_request():
     """
-    Adds valid user to the global session object `g`
+    add user to global object g
     """
     setattr(g, 'user', get_user(request.args.get('login_as', 0)))
 
@@ -67,7 +57,7 @@ def before_request():
 @app.route('/', strict_slashes=False)
 def index() -> str:
     """
-    Renders a basic html template
+    Renders html on the screen
     """
     return render_template('5-index.html')
 
